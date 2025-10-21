@@ -3,6 +3,7 @@ package-mode=false
 
 [tool.poetry.dependencies]
 python="^3.13.5"
+aiogram = "^3.22.0"
 
 [dependency-groups]
 dev = [
