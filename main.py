@@ -6,14 +6,15 @@ from aiogram.enums.parse_mode import ParseMode
 from aiogram.client.default import DefaultBotProperties
 from aiogram.fsm.storage.memory import MemoryStorage
 
-from core import config
+from core.config import setting
 from api.handlers import router
 
 
 async def main() -> None:
 
     bot = Bot(
-        token=config.BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+        token=setting.t_bot.token,
+        default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
     dp = Dispatcher(storage=MemoryStorage())
     dp.include_router(router=router)
