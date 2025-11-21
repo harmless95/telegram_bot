@@ -9,7 +9,7 @@ async def button_training() -> tuple[str, InlineKeyboardMarkup]:
         text="Предыдущий раздел",
         callback_data=SwitchButton(button="Раздел развлечений").pack(),
     )
-    builder.button(text="tw", url="https://www.twitch.tv/vadimvk777")
+    builder.button(text="tw", url="https://www.twitch.tv")
     builder.button(
         text="главное меню",
         callback_data=SwitchButton(button="главное меню").pack(),
