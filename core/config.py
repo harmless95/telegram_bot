@@ -1,6 +1,26 @@
-from os import getenv
-from dotenv import load_dotenv
+from pathlib import Path
 
-load_dotenv()
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import BaseModel
 
-BOT_TOKEN = getenv("BOT_TOKEN")
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+class TelegramBot(BaseModel):
+    token: str
+
+
+class Setting(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_file=(
+            BASE_DIR / ".env.template",
+            BASE_DIR / ".env",
+        ),
+        case_sensitive=False,
+        env_nested_delimiter="__",
+        env_prefix="APP_CONFIG__",
+    )
+    t_bot: TelegramBot
+
+
+setting = Setting()
