@@ -10,6 +10,7 @@ from .button_hadler import button_main_menu, button_entertainment, button_traini
 
 router = Router()
 
+
 @router.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
     await message.answer(f"Hello, {html.bold(message.from_user.full_name)}!")
