@@ -22,6 +22,28 @@ async def button_message(message: Message, state: FSMContext):
     await message.answer(text=text, reply_markup=markup)
 
 
+@router.callback_query(SwitchButton.filter(), StateFilter(Form))
+async def switch_buttons(
+    call: CallbackQuery, callback_data: SwitchButton, state: FSMContext
+):
+    if callback_data.button == "Раздел развлечений":
+        text, markup = await button_entertainment()
+        await state.set_state(Form.button_one)
+        await call.message.edit_text(text=text, reply_markup=markup)
+
+    elif callback_data.button == "Учебный раздел":
+        text, markup = await button_training()
+        await state.set_state(Form.button_two)
+        await call.message.edit_text(text=text, reply_markup=markup)
+
+    elif callback_data.button == "главное меню":
+        text, markup = await button_main_menu()
+
+        await state.set_state(Form.button_menu)
+        await call.message.edit_text(text=text, reply_markup=markup)
+    await call.answer()
+
+
 @router.message()
 async def message_handler(message: Message) -> None:
     await message.answer(f"Твой ID: {message.from_user.id}")
