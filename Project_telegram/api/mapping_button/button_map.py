@@ -1,12 +1,12 @@
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 
-from Project_telegram.api.button_builder import (
+from api.button_builder import (
     button_entertainment,
     button_training,
     button_main_menu,
 )
-from Project_telegram.core.model.States_button import Form
+from core.model import Form
 
 
 async def handler_entertainment(call: CallbackQuery, state: FSMContext):
