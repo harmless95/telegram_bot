@@ -4,8 +4,8 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, CallbackQuery
 
 
-from core.model.callback_data import SwitchButton
-from core.model.States_button import Form
+from Project_telegram.core.model.callback_data import SwitchButton
+from Project_telegram.core.model.States_button import Form
 from .button_builder import button_main_menu
 from .mapping_button import ALL_BUTTON
 

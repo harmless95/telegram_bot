@@ -7,9 +7,9 @@ from aiogram.enums.parse_mode import ParseMode
 from aiogram.client.default import DefaultBotProperties
 from aiogram.fsm.storage.memory import MemoryStorage
 
-from core.model.helper_db import db_helper_conn
-from core.config import setting
-from api.handlers import router
+from Project_telegram.core.model.helper_db import db_helper_conn
+from Project_telegram.core.config import setting
+from Project_telegram.api.handlers import router
 
 
 @asynccontextmanager

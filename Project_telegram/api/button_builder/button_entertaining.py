@@ -1,6 +1,6 @@
 from aiogram.utils.keyboard import InlineKeyboardBuilder, InlineKeyboardMarkup
 
-from core.model.callback_data import SwitchButton
+from Project_telegram.core.model.callback_data import SwitchButton
 
 
 async def button_entertainment() -> tuple[str, InlineKeyboardMarkup]:

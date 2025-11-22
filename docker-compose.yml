@@ -1,0 +1,19 @@
+services:
+  tg_app:
+    build:
+      dockerfile: Project_telegram/Dockerfile
+      context: .
+    container_name: tg_app
+    environment:
+      - APP_CONFIG__T_BOT__TOKEN=${APP_CONFIG__T_BOT__TOKEN}
+
+  pg:
+    image: postgres:latest
+    container_name: db_pg
+    environment:
+
+    ports:
+      - "5432:5432"
+
+
+
