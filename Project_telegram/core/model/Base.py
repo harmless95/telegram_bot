@@ -1,11 +1,11 @@
 from sqlalchemy.orm import DeclarativeBase, declared_attr
 from sqlalchemy import MetaData
 
-from Project_telegram.core.config import setting
-from Project_telegram.utils.conv_file import camel_case_to_snake_case
+from core.config import setting
+from utils.conv_file import camel_case_to_snake_case
 
 
-class Base(DeclarativeBase):
+class BaseDB(DeclarativeBase):
     __abstract__ = True
 
     metadata = MetaData(naming_convention=setting.db.naming_convention)
