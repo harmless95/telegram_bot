@@ -4,17 +4,21 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, CallbackQuery
 
 
-from Project_telegram.core.model.callback_data import SwitchButton
-from Project_telegram.core.model.States_button import Form
+from core.model import SwitchButton, Form, get_fabric_session
 from .button_builder import button_main_menu
 from .mapping_button import ALL_BUTTON
+from .Dependencies import save_db_user
 
 router = Router()
 
 
 @router.message(CommandStart())
-async def command_start_handler(message: Message) -> None:
-    await message.answer(f"Hello, {html.bold(message.from_user.full_name)}!")
+async def command_start_handler(
+    message: Message,
+) -> None:
+    async with get_fabric_session() as session:
+        await save_db_user(user_id=message.from_user.id, session=session)
+        await message.answer(f"Hello, {html.bold(message.from_user.full_name)}!")
 
 
 @router.message(Command("Button"))
