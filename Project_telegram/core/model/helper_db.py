@@ -1,8 +1,8 @@
 from typing import AsyncGenerator
-
+from contextlib import asynccontextmanager
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 
-from Project_telegram.core.config import setting
+from core.config import setting
 
 
 class DatabaseHelper:
@@ -30,16 +30,22 @@ class DatabaseHelper:
     async def dispose(self) -> None:
         await self.async_engine.dispose()
 
-    async def get_session(self) -> AsyncGenerator[AsyncSession, None]:
+    @asynccontextmanager
+    async def get_generator_session(self) -> AsyncGenerator[AsyncSession, None]:
         async with self.async_fabric_session() as session:
             yield session
-            await session.close()
 
 
 db_helper_conn = DatabaseHelper(
-    url=setting.db.url,
+    url=str(setting.db.url),
     echo=setting.db.echo,
     echo_pool=setting.db.echo_pool,
     pool_size=setting.db.pool_size,
     max_overflow=setting.db.max_overflow,
 )
+
+
+@asynccontextmanager
+async def get_fabric_session():
+    async with db_helper_conn.get_generator_session() as session:
+        yield session
