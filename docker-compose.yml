@@ -6,14 +6,32 @@ services:
     container_name: tg_app
     environment:
       - APP_CONFIG__T_BOT__TOKEN=${APP_CONFIG__T_BOT__TOKEN}
+    depends_on:
+      - pg
 
   pg:
     image: postgres:latest
     container_name: db_pg
+    env_file:
+      - .env
     environment:
-
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
     ports:
       - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $${DB_USER} -d $${DB_NAME}" ]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+
+volumes:
+  pgdata:
+
 
 
 
