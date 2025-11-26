@@ -8,6 +8,7 @@ from core.model import SwitchButton, Form, db_helper_conn
 from .button_builder import button_main_menu
 from .mapping_button import ALL_BUTTON
 from .Dependencies import save_db_user
+from .text_gpt.file_gpt import text_message
 
 router = Router()
 
@@ -24,6 +25,12 @@ async def button_message(message: Message, state: FSMContext):
     text, markup = await button_main_menu()
     await state.set_state(Form.button_menu)
     await message.answer(text=text, reply_markup=markup)
+
+
+@router.message(Command("GPT"))
+async def chat_gpt(message: Message):
+    result_text = await text_message(message=message)
+    await message.answer(text=result_text)
 
 
 @router.callback_query(SwitchButton.filter(), StateFilter(Form))

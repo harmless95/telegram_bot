@@ -1,5 +1,6 @@
 services:
   tg_app:
+    image: my_stf
     build:
       dockerfile: Project_telegram/Dockerfile
       context: .
