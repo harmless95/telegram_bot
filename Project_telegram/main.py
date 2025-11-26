@@ -1,26 +1,19 @@
 import logging
 import asyncio
-from contextlib import asynccontextmanager
 
 from aiogram import Bot, Dispatcher
 from aiogram.enums.parse_mode import ParseMode
 from aiogram.client.default import DefaultBotProperties
 from aiogram.fsm.storage.memory import MemoryStorage
 
-from core.model import db_helper_conn
 from core.config import setting
 from api.handlers import router
 
-
-@asynccontextmanager
-async def lifespan():
-    try:
-        yield
-    finally:
-        await db_helper_conn.dispose()
+loger = logging.getLogger(__name__)
 
 
 async def main() -> None:
+    loger.warning("TOKEN: %s", setting.t_bot.token)
     bot = Bot(
         token=setting.t_bot.token,
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),

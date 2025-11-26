@@ -43,9 +43,3 @@ db_helper_conn = DatabaseHelper(
     pool_size=setting.db.pool_size,
     max_overflow=setting.db.max_overflow,
 )
-
-
-@asynccontextmanager
-async def get_fabric_session():
-    async with db_helper_conn.get_generator_session() as session:
-        yield session
