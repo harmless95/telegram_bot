@@ -1,10 +1,15 @@
+from typing import TYPE_CHECKING
 from datetime import datetime, timezone
 
-from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import String, TIMESTAMP, BigInteger
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import String, TIMESTAMP, BigInteger, Integer
 
-from core.model.Base import BaseDB
+from core.model import BaseDB
 from core.model.id_mixin import IdPrKey
+
+if TYPE_CHECKING:
+    from core.model import MessageGPT
+    from core.model import HistoryMessage
 
 
 class User(BaseDB, IdPrKey):
@@ -14,4 +19,13 @@ class User(BaseDB, IdPrKey):
         TIMESTAMP(timezone=True),
         default=lambda: datetime.now(tz=timezone.utc),
         nullable=False,
+    )
+
+    chat_disabled: Mapped[int] = mapped_column(Integer, default=1)
+
+    message_gpt: Mapped["MessageGPT"] = relationship(
+        "MessageGPT", back_populates="user_message"
+    )
+    message_history: Mapped["HistoryMessage"] = relationship(
+        "HistoryMessage", back_populates="user_history"
     )
