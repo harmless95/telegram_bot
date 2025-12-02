@@ -3,11 +3,18 @@ from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import BaseModel, PostgresDsn
 
+from core.help_core.help_commands import DEFAULT_COMMANDS
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 class TelegramBot(BaseModel):
     token: str
+    commands: tuple[str, str] = DEFAULT_COMMANDS
+
+
+class AIAssistant(BaseModel):
+    token_AI: str
 
 
 class PostgresDB(BaseModel):
@@ -38,6 +45,7 @@ class Setting(BaseSettings):
     )
     t_bot: TelegramBot
     db: PostgresDB
+    ai_bot: AIAssistant
 
 
 setting = Setting()
