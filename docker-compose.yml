@@ -1,6 +1,5 @@
 services:
   tg_app:
-    image: my_stf
     build:
       dockerfile: Project_telegram/Dockerfile
       context: .
@@ -8,6 +7,7 @@ services:
     environment:
       APP_CONFIG__DB__URL: "postgresql+asyncpg://${POSTGRES_USER:?Error: POSTGRES_USER not set}:${POSTGRES_PASSWORD:?Error: POSTGRES_PASSWORD not set}@pg:5432/${POSTGRES_DB:?Error: POSTGRES_DB not set}"
       APP_CONFIG__T_BOT__TOKEN: ${APP_CONFIG__T_BOT__TOKEN}
+      APP_CONFIG__AI_BOT__TOKEN_AI: ${APP_CONFIG__AI_BOT__TOKEN_AI}
     depends_on:
       - pg
     networks:
