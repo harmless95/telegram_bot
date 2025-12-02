@@ -8,6 +8,8 @@ from aiogram.fsm.storage.memory import MemoryStorage
 
 from core.config import setting
 from api.handlers import router
+from api.example_practice.new_router import router as router_example
+from api.example_practice.practice_replay_keyboard import router as router_reply
 
 loger = logging.getLogger(__name__)
 
@@ -20,6 +22,8 @@ async def main() -> None:
     )
     dp = Dispatcher(storage=MemoryStorage())
     dp.include_router(router=router)
+    dp.include_router(router=router_example)
+    dp.include_router(router=router_reply)
 
     await bot.delete_webhook(drop_pending_updates=True)
 
