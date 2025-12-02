@@ -4,6 +4,8 @@ __all__ = (
     "SwitchButton",
     "Form",
     "User",
+    "MessageGPT",
+    "HistoryMessage",
 )
 
 from .Base import BaseDB
@@ -11,3 +13,5 @@ from .helper_db import db_helper_conn
 from .callback_data import SwitchButton
 from .States_button import Form
 from .user import User
+from .gpt_message import MessageGPT
+from .history import HistoryMessage
